@@ -1,4 +1,5 @@
 const inquirer = require("inquirer");
+const fs = require("fs");
 // const Employee = require("./lib/employee"); -- parent class
 const Manager = require("./lib/manager");
 const Engineer = require("./lib/engineer");
@@ -128,3 +129,7 @@ inquirer
 const employeeQuestions = () => {
   return;
 };
+
+//function to create html element
+
+function writeElement() {}
