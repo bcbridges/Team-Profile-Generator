@@ -1,5 +1,9 @@
 const inquirer = require("inquirer");
 const fs = require("fs");
+const parse = require("node-html-parser").parse;
+// const root = parse("./dist/index.html");
+// const teamDiv = root.querySelector("div");
+// console.log(teamDiv);
 // const Employee = require("./lib/employee"); -- parent class
 const Manager = require("./lib/manager");
 const Engineer = require("./lib/engineer");
@@ -10,6 +14,9 @@ let index = fs.readFile("./lib/indexTemplate.html", "utf8", (err, data) => {
     console.error(err);
     return;
   }
+  const root = parse(data);
+  const teamDiv = root.querySelector("div");
+  console.log(teamDiv);
   fs.writeFile("./dist/index.html", data, "utf8", () => {
     if (err) {
       console.error(err);
