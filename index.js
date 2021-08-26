@@ -34,6 +34,37 @@ let questions = () => {
     .then((response) => {
       if (response.emplType == "I'm Done") {
         //Add if index.html doesnt exist clause unless there's already data there.
+        fs.readFile("./dist/index.html", "utf8", function (err, data) {
+          if (err) {
+            console.error(err);
+            return;
+          }
+          let cardsToAdd = "";
+          employeeList.forEach((value) => {
+            let cardDivLayout = `<div class="card" style="width: 18rem;">
+            <div class="card-body bg-primary">
+            <h5 class="card-title text-light">${value.name}</h5>
+            <h6 class="card-title text-light">${value.role}</h6>
+            </div>
+            <ul class="list-group list-group-flush">
+            <li class="list-group-item">ID: ${value.id}</li>
+            <li class="list-group-item">Email: <a href="mailto:${value.email}">${value.email}</a></li>
+            <li class="list-group-item">Third Item:</li>
+            </ul></div>`;
+            cardsToAdd += cardDivLayout;
+          });
+
+          var result = data.replace(/\<\/div>/g, cardsToAdd + "</div>");
+
+          fs.writeFile("./dist/index.html", result, "utf8", function (err) {
+            if (err) return console.log(err);
+          });
+        });
+        //
+        //
+        //
+        //
+
         console.log(
           "You're all set! You can find your html file here - ./dist/index.html"
         );
@@ -71,7 +102,6 @@ let questions = () => {
                   response.officeNum
                 );
                 employeeList.push(managerData);
-                console.log(employeeList);
                 console.log(`${response.name} has been added to your team!\n`);
                 questions();
               });
@@ -108,7 +138,6 @@ let questions = () => {
                   response.github
                 );
                 employeeList.push(engineerData);
-                console.log(employeeList);
                 console.log(`${response.name} has been added to your team!\n`);
                 questions();
               });
@@ -145,7 +174,6 @@ let questions = () => {
                   response.school
                 );
                 employeeList.push(internData);
-                console.log(employeeList);
                 console.log(`${response.name} has been added to your team!\n`);
                 questions();
               });
