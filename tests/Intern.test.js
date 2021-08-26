@@ -1,4 +1,4 @@
-const Engineer = require("../lib/intern");
+const Intern = require("../lib/intern");
 
 describe("getSchool", () => {
   it("should return the school key value as a string", () => {
