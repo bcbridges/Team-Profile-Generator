@@ -8,15 +8,13 @@ const parse = require("node-html-parser").parse;
 const Manager = require("./lib/manager");
 const Engineer = require("./lib/engineer");
 const Intern = require("./lib/intern");
+var employeeList = [];
 
 let index = fs.readFile("./lib/indexTemplate.html", "utf8", (err, data) => {
   if (err) {
     console.error(err);
     return;
   }
-  const root = parse(data);
-  const teamDiv = root.querySelector("div");
-  console.log(teamDiv);
   fs.writeFile("./dist/index.html", data, "utf8", () => {
     if (err) {
       console.error(err);
@@ -72,6 +70,8 @@ let questions = () => {
                   response.email,
                   response.officeNum
                 );
+                employeeList.push(managerData);
+                console.log(employeeList);
                 console.log(`${response.name} has been added to your team!\n`);
                 questions();
               });
@@ -107,6 +107,8 @@ let questions = () => {
                   response.email,
                   response.github
                 );
+                employeeList.push(engineerData);
+                console.log(employeeList);
                 console.log(`${response.name} has been added to your team!\n`);
                 questions();
               });
@@ -140,8 +142,10 @@ let questions = () => {
                   response.name,
                   response.id,
                   response.email,
-                  response.github
+                  response.school
                 );
+                employeeList.push(internData);
+                console.log(employeeList);
                 console.log(`${response.name} has been added to your team!\n`);
                 questions();
               });
