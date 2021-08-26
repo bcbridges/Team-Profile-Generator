@@ -41,15 +41,32 @@ let questions = () => {
           }
           let cardsToAdd = "";
           employeeList.forEach((value) => {
+            switch (value.role) {
+              case "Manager":
+                var icon = `<i class="bi bi-cup"></i>`;
+                var roleUnique = "Office Number: ";
+                var uniqueValue = value.officeNum;
+                break;
+              case "Engineer":
+                var icon = `<i class="bi bi-eyeglasses"></i>`;
+                var roleUnique = "GitHub: ";
+                var uniqueValue = `<a target="_blank" href="https://github.com/${value.github}">${value.github}</a>`;
+                break;
+              case "Intern":
+                var icon = `<i class="bi bi-book"></i>`;
+                var roleUnique = "School: ";
+                var uniqueValue = value.school;
+                break;
+            }
             let cardDivLayout = `<div class="card" style="width: 18rem;">
             <div class="card-body bg-primary">
             <h5 class="card-title text-light">${value.name}</h5>
-            <h6 class="card-title text-light">${value.role}</h6>
+            <h6 class="card-title text-light">${icon}&nbsp;${value.role}</h6>
             </div>
             <ul class="list-group list-group-flush">
             <li class="list-group-item">ID: ${value.id}</li>
             <li class="list-group-item">Email: <a href="mailto:${value.email}">${value.email}</a></li>
-            <li class="list-group-item">Third Item:</li>
+            <li class="list-group-item">${roleUnique}${uniqueValue}</li>
             </ul></div>`;
             cardsToAdd += cardDivLayout;
           });
@@ -60,10 +77,6 @@ let questions = () => {
             if (err) return console.log(err);
           });
         });
-        //
-        //
-        //
-        //
 
         console.log(
           "You're all set! You can find your html file here - ./dist/index.html"
